@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+
+.marker.selected {
+  height: 70px;
+  width: 70px;
+  border: 1px;
+  border-style: dashed;
+  border-width: 3px;
+  background-color: rgba(173, 78, 78, 0.5);
+  opacity: 100%;
+  border-color: red;
+  border-radius: 50%;
+}

@@ -1,7 +1,12 @@
-GET http://localhost:3000/posts
+GET http://localhost:3000/character_coordinate
 
 ###
 
-GET http://localhost:3000/posts/652c5f859721f3bd5480e941
+POST http://localhost:3000/game/easy/waldo
+Content-Type: application/json
 
-###
+{
+    "x": 861,
+    "y": 921
+}
+

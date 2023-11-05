@@ -1,21 +1,21 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
-const scoreSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minLength: 1,
-  },
+// const scoreSchema = new mongoose.Schema({
+//   name: {
+//     type: String,
+//     required: true,
+//     minLength: 1,
+//   },
 
-  time: {
-    type: Number,
-    required: true,
-    minLength: 1,
-  },
-  date: {
-    type: Date,
-    default: Date.now(),
-  },
-});
+//   time: {
+//     type: Number,
+//     required: true,
+//     minLength: 1,
+//   },
+//   date: {
+//     type: Date,
+//     default: Date.now(),
+//   },
+// });
 
-module.exports = mongoose.model("Score", postSchema);
+// module.exports = mongoose.model("Score", postSchema);

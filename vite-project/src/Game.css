@@ -8,16 +8,25 @@
   font-size: 3vh;
 }
 
-.marker.selected {
+.marker {
+  position: absolute;
   height: 70px;
   width: 70px;
   border: 1px;
   border-style: dashed;
   border-width: 3px;
-  background-color: rgba(173, 78, 78, 0.5);
   opacity: 100%;
-  border-color: red;
   border-radius: 50%;
+  z-index: 10;
+}
+.marker.selected {
+  background-color: rgba(173, 78, 78, 0.5);
+  border-color: red;
+}
+
+.marker.correct {
+  background-color: rgba(70, 241, 18, 0.5);
+  border-color: green;
 }
 
 #mainImage {

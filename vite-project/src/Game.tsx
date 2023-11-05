@@ -5,7 +5,7 @@ import wizard from "./assets/wizard.jpeg";
 import odlaw from "./assets/odlaw.jpeg";
 import easyMap from "./assets/Easy.jpeg";
 import mediumMap from "./assets/Medium.jpeg";
-import difficultMap from "./assets/Difficult.jpeg";
+import hardMap from "./assets/hard.jpeg";
 
 import "./Game.css";
 import { useParams } from "react-router-dom";
@@ -128,7 +128,7 @@ function Game() {
     } else if (difficulty == "medium") {
       gameImg = mediumMap;
     } else {
-      gameImg = difficultMap;
+      gameImg = hardMap;
     }
 
     return (

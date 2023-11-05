@@ -11,7 +11,7 @@ character_coordinate = {
     wizard: { x: 1378, y: 57 },
     odlaw: { x: 396, y: 911 },
   },
-  difficult: {
+  hard: {
     waldo: { x: 334, y: 1093 },
     wendy: { x: 1514, y: 986 },
     wizard: { x: 577, y: 173 },

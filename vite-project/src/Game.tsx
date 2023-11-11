@@ -12,6 +12,8 @@ import { useParams } from "react-router-dom";
 
 function Game() {
   const { difficulty } = useParams();
+  const [startTime, setStartTime] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
   const [count, setCount] = useState(0);
   const [clickLocation, setClickLocation] = useState<number[]>([0, 0]);
   const [isFirstClickDone, setIsFirstClickDone] = useState(false);
@@ -23,6 +25,19 @@ function Game() {
     { name: "wizard", img: wizard, selected: false },
     { name: "odlaw", img: odlaw, selected: false },
   ]);
+
+  setTimeout(() => {
+    let tempElapsedTime = elapsedTime + 1;
+    setElapsedTime(tempElapsedTime);
+  }, 1000);
+
+  function ElapsedTime() {
+    return (
+      <>
+        <div>{elapsedTime}</div>
+      </>
+    );
+  }
 
   function SelectedMarker() {
     if (isFirstClickDone && isSelected) {
@@ -157,6 +172,7 @@ function Game() {
           <button onClick={() => setCount((count) => count + 1)}>
             count is {count}
           </button>
+          <ElapsedTime />
         </div>
         <div id="imgWrapper" className="relative setWidth">
           <SelectedMarker />

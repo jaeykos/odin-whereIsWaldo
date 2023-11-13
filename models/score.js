@@ -11,8 +11,11 @@ const scoreSchema = new mongoose.Schema({
   duration: {
     seconds: { type: Number },
     minutes: { type: Number },
-    hours: { type: Number },
     total_seconds: { type: Number },
+  },
+
+  difficulty: {
+    type: String,
   },
 });
 

@@ -57,6 +57,10 @@ function Home() {
           <GameSelectionPanel difficulty={"medium"} />
           <GameSelectionPanel difficulty={"hard"} />
         </div>
+
+        <div>
+          <a href="/leaderboard"> leaderboard</a>
+        </div>
       </div>
     </>
   );

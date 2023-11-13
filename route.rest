@@ -4,6 +4,7 @@ GET http://localhost:3000/character_coordinate
 
 POST http://localhost:3000/game/easy/waldo
 Content-Type: application/json
+
 {
     "x": 861,
     "y": 921
@@ -11,7 +12,7 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:3000/score
+POST http://localhost:3000/leaderboard
 Content-Type: application/json
 
 {
@@ -19,6 +20,10 @@ Content-Type: application/json
     "duration": {
         "seconds" : 32,
         "minutes": 53, 
-        "hours":1
-    }
+        "total_seconds": 5
+    },
+    "difficulty":"hard"
 }
+
+###
+GET http://localhost:3000/leaderboard

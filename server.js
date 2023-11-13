@@ -27,8 +27,8 @@ app.use(express.json());
 const gameRouter = require("./routes/game");
 app.use("/game", gameRouter);
 
-const scoreRouter = require("./routes/score");
-app.use("/score", scoreRouter);
+const leaderboardRouter = require("./routes/leaderboard");
+app.use("/leaderboard", leaderboardRouter);
 
 app.listen(3000, () => {
   console.log("Sever Started");

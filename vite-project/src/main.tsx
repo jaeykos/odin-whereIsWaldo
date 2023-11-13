@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./Home.js";
 import Game from "./Game.js";
-import Score from "./Score.js";
+import Score from "./leaderboard.js";
 
 const router = createBrowserRouter([
   {

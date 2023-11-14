@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.selectionMap {
+  background-size: 1000px 550px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}

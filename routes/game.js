@@ -30,4 +30,12 @@ router.post("/:difficulty/:characterName", (req, res) => {
   }
 });
 
+router.get("/:difficulty/hint", (req, res) => {
+  try {
+    res.json(character_coordinate[req.params.difficulty]);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

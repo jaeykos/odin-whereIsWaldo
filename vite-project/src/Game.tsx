@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import waldo from "./assets/waldo.jpeg";
 import wendy from "./assets/wendy.jpeg";
 import wizard from "./assets/wizard.jpeg";
@@ -16,11 +16,12 @@ function Game() {
   const [duration, setDuration] = useState(0);
   const [isGameWon, setIsGameWon] = useState(false);
   const [isWinPopUpOn, setIsWinPopUpOn] = useState(false);
-  const [count, setCount] = useState(0);
   const [clickLocation, setClickLocation] = useState<number[]>([0, 0]);
   const [isFirstClickDone, setIsFirstClickDone] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
+  const [hintCoordinates, setHintCoordinates] = useState<any>(null);
   const [boxes, setBoxes] = useState([]);
+  const [isHintOn, setIsHintOn] = useState(false);
   const [name, setName] = useState("");
   const [characters, setCharacters] = useState([
     { name: "waldo", img: waldo, selected: false },
@@ -30,14 +31,78 @@ function Game() {
   ]);
   const navigate = useNavigate();
 
-  // setTimeout(() => {
-  //   if (!isGameWon) setElapsedTime(elapsedTime + 1);
-  // }, 1000);
+  setTimeout(() => {
+    if (!isGameWon) setDuration(duration + 1);
+  }, 1000);
 
-  function ElapsedTime() {
+  function NavbarItemForGames() {
     return (
       <>
-        <div>{duration}</div>
+        <div className="durationText fixed top-2 z-50 font-extrabold text-xl">
+          {duration}s
+        </div>
+        <div
+          className="hintText fixed top-2 z-50 font-extrabold text-xl"
+          onMouseEnter={() => {
+            setIsHintOn(true);
+            console.log("Hint on");
+          }}
+          onMouseLeave={() => {
+            setIsHintOn(false);
+            console.log("Hint off");
+          }}
+        >
+          Hover over me for hint!
+        </div>
+      </>
+    );
+  }
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/game/${difficulty}/hint`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+
+        if (data) {
+          console.log("hint:");
+          console.log(data);
+          const tempArr = Object.values(data);
+          console.log(tempArr);
+          setHintCoordinates(tempArr);
+        } else {
+          //alert user is incorrect, but with fade away notificaion
+          alert("hints not fetched");
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }, []);
+
+  function HintMarkers() {
+    if (!isHintOn) return <></>;
+
+    return hintCoordinates.map((hintCoordinate: any) => (
+      <HintMarker coordinate={hintCoordinate} />
+    ));
+  }
+
+  function HintMarker({ coordinate }: { coordinate: any }) {
+    console.log(coordinate.x);
+    console.log(coordinate.y);
+
+    return (
+      <>
+        <div
+          className="hintMarker"
+          style={{
+            left: coordinate.x - 150 + "px",
+            top: coordinate.y - 150 + "px",
+          }}
+        ></div>
       </>
     );
   }
@@ -94,6 +159,7 @@ function Game() {
           );
           tempCharacter!.selected = true;
           setCharacters(tempCharacters);
+          updateIsGameWon();
 
           setIsSelected(false);
         } else {
@@ -111,6 +177,7 @@ function Game() {
       if (!character.selected) return;
     }
     setIsGameWon(true);
+    setIsWinPopUpOn(true);
   }
 
   function PopUpMenu() {
@@ -126,7 +193,6 @@ function Game() {
           }
           onClick={() => {
             checkLocation(character.name);
-            updateIsGameWon();
           }}
         />
       ));
@@ -136,7 +202,7 @@ function Game() {
       return (
         <div
           id="popUpMenu"
-          className=" w-1/12 aspect-square p-1 bg-white grid grid-cols-2 gap-1  border-2 border-neutral-700 rounded-lg "
+          className=" w-1/12 aspect-square p-1 bg-white grid grid-cols-2 gap-1  border-2 border-neutral-700 rounded-lg z-20"
           style={{
             position: "absolute",
             left: clickLocation[0] + 30 + "px",
@@ -200,12 +266,12 @@ function Game() {
       setIsGameWon(false);
       setIsWinPopUpOn(false);
 
-      navigate("/");
+      navigate("/leaderboard");
     });
   }
 
   function PopUpGameWon() {
-    // if (!isGameWon && !isWinPopUpOn) return;
+    if (!isGameWon || !isWinPopUpOn) return;
     return (
       <>
         <div className="fixed w-full h-full bg-black opacity-60 z-50"></div>
@@ -241,8 +307,15 @@ function Game() {
             </form>
             <div>
               <div className="flex flex-row mt-5"></div>
-              <button className="winPopUpButton mr-4 px-6 py-1">Home</button>
-              <button className="winPopUpButton px-6 py-1">Replay</button>
+              <button className="winPopUpButton mr-4 px-6 py-1">
+                <a href="/">Home</a>
+              </button>
+              <button
+                className="winPopUpButton px-6 py-1"
+                onClick={() => window.location.reload()}
+              >
+                Replay
+              </button>
             </div>
           </div>
         </div>
@@ -253,14 +326,10 @@ function Game() {
   return (
     <>
       {PopUpGameWon()}
+      <NavbarItemForGames />
       <div className="setWidth h-full">
-        <div id="navBar" className="card sticky top-0 left-0 bg-slate-300 z-40">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-          <ElapsedTime />
-        </div>
         <div id="imgWrapper" className="relative setWidth">
+          <HintMarkers />
           <SelectedMarker />
           <GameImage />
           <PopUpMenu />

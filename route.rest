@@ -27,3 +27,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/leaderboard
+
+###
+GET http://localhost:3000/game/easy/hint

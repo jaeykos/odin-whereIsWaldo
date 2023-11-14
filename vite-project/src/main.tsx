@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./main.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./Home.js";
+import Navbar from "./Navbar.js";
 import Game from "./Game.js";
-import Score from "./leaderboard.js";
+import Leaderboard from "./leaderboard.js";
 
 const router = createBrowserRouter([
   {
@@ -13,8 +14,8 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "score",
-    element: <Score />,
+    path: "leaderboard",
+    element: <Leaderboard />,
   },
   {
     path: "game/:difficulty",
@@ -24,6 +25,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <div className="h-full w-full flex flex-col">
+      <Navbar />
+      <RouterProvider router={router} />
+    </div>
   </React.StrictMode>
 );
